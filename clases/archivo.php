@@ -43,6 +43,20 @@ class archivo
 			return $this->objPHPExcel->getSheetCount(); 			 
 		}
 
+
+		function getUltimaFila()
+		{
+
+ 			for ($c=0; $c < $this->getNumeroHojas() ; $c++)  
+			{ 	
+				$this->objPHPExcel->setActiveSheetIndex($c);  /// <-- indicamos la hoja a abrir
+				$no[] = $this->objPHPExcel->getActiveSheet()->getHighestRow();	
+			}
+			return $no;
+		}
+
+
+
 		function getNombreHojas()  
 		{		 
  			for ($c=0; $c < $this->getNumeroHojas() ; $c++)  

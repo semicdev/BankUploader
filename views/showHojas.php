@@ -1,7 +1,7 @@
 <?php
 include("../clases/archivo.php");
-$nombreArchivo = $_GET['dir'];
-$nombre = $_GET['nombre'];
+$nombreArchivo = $_GET['dir']; // ubicacion archivo
+$nombre = $_GET['nombre']; // nombre del archivo
 $ubicacionArchivo = "../".$nombreArchivo;
 $libro = new archivo();
 $libro->leerLibro($ubicacionArchivo);
@@ -14,14 +14,15 @@ $libro->leerLibro($ubicacionArchivo);
 	   	<?php
 	   		$nombreHojas = $libro->getNombreHojas();
 	   		$numeroHojas = $libro->getNumeroHojas();
+   			$ultimaFila = $libro->getUltimaFila();
+
 	   		for ($i=0; $i<$numeroHojas ; $i++) 
 	   		{ 													
-	   			echo "<label><input type='radio' value=".$i." id='$nombreHojas[$i]'  name='numHoja'>".$nombreHojas[$i]."</label><br>";			
-	   		}								
+	   			echo "<label><input type='radio' value=".json_encode($i,$ultimaFila[$i])." name='numHoja'>".$nombreHojas[$i]."</label><br>";			
+	   		//	echo "<input type='hidden' name='numTotFilas[]' value='".$ultimaFila[$i]."' >";
+	   		}
 	   	?>
 		<br>
-			<p><span>Indique la ultima fila con datos:</span></p>
-			<p><input type="text" name="numfilas" value=''></p>
 			<br>
 			<p><input type="submit" name="enviarhoja" id="enviarhoja" value="Continuar" class="btn btn-success"></p>
 	</form>	

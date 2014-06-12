@@ -8,7 +8,7 @@ class datos
 		return $datosAnyo;
 	}
 
-	function getGeo($latitud,$longitud,$elevacion,$x,$y,$rango,$loc,$tipo)
+	function getGeo($latitud,$longitud,$elevacion,$x,$y,$rango,$tipo)
 	{
 		$datosGeo = array('latitud' => $latitud,
 						  'longitud' => $longitud,
@@ -16,7 +16,7 @@ class datos
 						  'x' => $x,
 						  'y' => $y,
 						  'rango' => $rango,
-						  'loc' => $loc,
+						  'loc' => array("latitud"=>$latitud,"longitud"=>$longitud),
 						  'tipo' => $tipo
 						  );
 		return $datosGeo;

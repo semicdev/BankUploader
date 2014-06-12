@@ -2,9 +2,15 @@
 include ('../clases/archivo.php');
 //include ('../clases/datosAnexos.php');
 
-$numHoja = (int)$_POST['numHoja'];
+$numHoja = $_POST['numHoja'];
+
+$hoja = $numHoja[0][0];
+$ulHoja = $numHoja[0][1];
+var_dump($hoja);
+var_dump($ulHoja);
+
+
 $ubicacionArchivo = $_POST['ubicacionArchivo'];
-$numfilas = $_POST['numfilas'];
 
 $libro = new archivo();
 $libro->leerLibro($ubicacionArchivo);
@@ -29,12 +35,13 @@ $nombrehoja = $libro->getNombreHojas();
 			<p align="right"><span><input type="submit" id="generaDoc" class="btn btn-success" value="Generar Documento"></span></p>
 			<table class= "table table-condensed table-striped">
 			<?php
-			$registros = $libro->getDataSheet($numHoja,9,$numfilas);
-			
-				for ($filai=0; $filai < ($numfilas-8); $filai++) 
+		/*	$regDato = $libro->getDataSheet($numHoja,9,$ultimaFila);
+			///////
+			$registros = $libro->getDataSheet($numHoja,11,$ultimaFila);
+			echo "<p><span><b>Carretera: </b></span><input type='text' class='form-control' name='carretera' onfocus='this.blur()' value='".$regDato[0][1]."' ></p>";
+				for ($filai=0; $filai < ($ultimaFila-10); $filai++) //establecemes la lectura de la hoja
 				{								 
 					echo "<tr>";
-
 						for ($columnai=0; $columnai < 10; $columnai++) 
 						{ 
 						$arr = $registros[$filai];
@@ -52,7 +59,7 @@ $nombrehoja = $libro->getNombreHojas();
 				}
 
 			  
-
+*/
 			?>
 
 			</table> 

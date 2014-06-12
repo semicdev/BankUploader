@@ -4,7 +4,8 @@ include('../clases/datosAnexos.php');
 // $json = $_POST['chkarray'];
 
 $json = $_POST['chkarray'];
-// echo sizeof($json);
+$carretera = $_POST['carretera'];
+ echo sizeof($json);
 
 // var_dump(json_decode($json[0]));
 // var_dump($json);
@@ -21,10 +22,10 @@ for ($cont=0; $cont<=sizeof($json); $cont++)
 {
 	   $idCarretera = "bre7t54ht3hj67u5uhjt4g8h";
        $idProyecto  = null;
-	   $carretera   = $json[0][1];
-	   $tramo		 = $json[1][0];
-	   $sentido     = $json[1][1];
-	   $carril 	 = $json[1][2];	
+	   $nombreCarretera   = $carretera;
+	   $tramo		 = $json[$cont][0];
+	   $sentido     = $json[$cont][1];
+	   $carril 	 = $json[$cont][2];	
 
 /*
 		$rubro 		 = substr($ubicacionArchivo, 12,1);
@@ -42,23 +43,15 @@ for ($cont=0; $cont<=sizeof($json); $cont++)
 		$x = $json[$cont][7];
 		$y = $json[$cont][8];
 		$rango = null; 
-		$loc = [$latitud,$longitud];
+		//$loc = [$latitud,$longitud];
 		$tipo ="point";
-		$geo  = $datos->getGeo($latitud,$longitud,$elevacion,$x,$y,$rango,$loc,$tipo);
+		$geo  = $datos->getGeo($latitud,$longitud,$elevacion,$x,$y,$rango,$tipo);
 		///////
 		$campos =  array("descripcion"=>$json[$cont][9]);
 		$consecutivo = $cont;
-	
-		array_unshift($json[$cont], $idCarretera,$idProyecto,$carretera,
-														 $tramo,$sentido,$carril,/*$rubro, 
-														 $abrEstudio,*/ $anyo, $geo, 
-														 $campos,$consecutivo);
-		
-		for ($i=10; $i<=23 ; $i++) 
-		{ 
-			unset($json[$cont][$i]);	
-		}
+				
+		$arrayNuevo = array($idCarretera,$idProyecto,$nombreCarretera, $tramo,$sentido,$carril,/*$rubro, $abrEstudio,*/ $anyo, $geo, $campos,$consecutivo);
 
-		var_dump($json[$cont]);
+		var_dump($arrayNuevo);
 }
 ?>
