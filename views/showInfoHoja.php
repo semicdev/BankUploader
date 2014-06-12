@@ -40,7 +40,7 @@ $nombrehoja = $libro->getNombreHojas();
 						$arr = $registros[$filai];
 							 if ($columnai == 0)
 							  {
-				 				 echo "<td><input type='checkbox' checked ='true' name='chkarray[]' value='".json_encode($arr)."'></td>"; 					  	
+				 				 echo "<td><input type='checkbox' checked ='true' name='chkarray[]' value='".json_encode($arr)."'>".$registros[$filai][$columnai]."</td>"; 					  	
 							  }else{
 							  	 echo "<td> ".$registros[$filai][$columnai]."</td>";		
 							  }
