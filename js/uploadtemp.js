@@ -64,7 +64,7 @@ function beforeSubmit()
 		var rutaCompleta ="tmpfile/"+nombreFile;
 		//console.log(rutaCompleta);
 		setTimeout(function(){
-			$.get( "views/showHojas.php?dir="+rutaCompleta+"&nombre="+nombreFile, function( data ) {
+			$.get( "views/showHojas.php?dir="+rutaCompleta+"&nombreArchivo="+nombreFile, function( data ) {
 			  $( "#mostrarHojas" ).html( data );
 			});
 		}, 300);

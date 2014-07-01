@@ -2,14 +2,14 @@
 include ('../clases/archivo.php');
 //include ('../clases/datosAnexos.php');
 
-$numHoja = $_POST['numHoja'];
+$numHoja = (int)$_POST['numHoja']; //obtenemos el numero de hoja del input radio
+$numTotalFilas = $_POST['numTotFilas']; // arreglo de total de filas de cada hoja
 
-$hoja = $numHoja[0][0];
-$ulHoja = $numHoja[0][1];
-var_dump($hoja);
-var_dump($ulHoja);
-
-
+$totalFilas = json_decode($numTotalFilas);
+$ultimaFila = $totalFilas[$numHoja]; // asignamos el total de filas de acuerdo a la hoja
+		
+		//var_dump($ultimaFila);		
+		$nombreArchivo=$_POST['nombreArchivo'];					// numHoja es el index;
 $ubicacionArchivo = $_POST['ubicacionArchivo'];
 
 $libro = new archivo();
@@ -34,8 +34,9 @@ $nombrehoja = $libro->getNombreHojas();
 			<form name="getValores" method="post" action="recibe.php">
 			<p align="right"><span><input type="submit" id="generaDoc" class="btn btn-success" value="Generar Documento"></span></p>
 			<table class= "table table-condensed table-striped">
+
 			<?php
-		/*	$regDato = $libro->getDataSheet($numHoja,9,$ultimaFila);
+			$regDato = $libro->getDataSheet($numHoja,9,$ultimaFila);
 			///////
 			$registros = $libro->getDataSheet($numHoja,11,$ultimaFila);
 			echo "<p><span><b>Carretera: </b></span><input type='text' class='form-control' name='carretera' onfocus='this.blur()' value='".$regDato[0][1]."' ></p>";
@@ -47,19 +48,29 @@ $nombrehoja = $libro->getNombreHojas();
 						$arr = $registros[$filai];
 							 if ($columnai == 0)
 							  {
-				 				 echo "<td><input type='checkbox' checked ='true' name='chkarray[]' value='".json_encode($arr)."'>".$registros[$filai][$columnai]."</td>"; 					  	
-							  }else{
-							  	 echo "<td> ".$registros[$filai][$columnai]."</td>";		
-							  }
+					 				//$expresion='';
+								  	if($registros[$filai][0]==null)
+								  	{ 
+								  		break;
+								  	}else{
+										 //echo "<td> ".$registros[$filai][$columnai]."</td>";		
+								  		echo "<td><input type='checkbox' checked ='true' name='chkarray[]' value='".json_encode($arr)."'>".$registros[$filai][$columnai]."</td>"; 					  	
+								 		
+										 }
+
+								}else{
+									echo "<td>".$registros[$filai][$columnai]."</td>"; 	
+									}				  	
+								 
 						}
+
 													
 
 					 echo "</tr>";	
 
 				}
 
-			  
-*/
+			 
 			?>
 
 			</table> 

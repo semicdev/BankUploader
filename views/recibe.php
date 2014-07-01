@@ -5,7 +5,7 @@ include('../clases/datosAnexos.php');
 
 $json = $_POST['chkarray'];
 $carretera = $_POST['carretera'];
- echo sizeof($json);
+ //echo sizeof($json);//aqui quitamos 10
 
 // var_dump(json_decode($json[0]));
 // var_dump($json);
@@ -18,7 +18,7 @@ foreach ($json as $key => $value) {
 //var_dump($json[0]);
 
 
-for ($cont=0; $cont<=sizeof($json); $cont++) 
+for ($cont=0; $cont<sizeof($json); $cont++) 
 {
 	   $idCarretera = "bre7t54ht3hj67u5uhjt4g8h";
        $idProyecto  = null;
@@ -52,6 +52,10 @@ for ($cont=0; $cont<=sizeof($json); $cont++)
 				
 		$arrayNuevo = array($idCarretera,$idProyecto,$nombreCarretera, $tramo,$sentido,$carril,/*$rubro, $abrEstudio,*/ $anyo, $geo, $campos,$consecutivo);
 
+		$elementName = array("idCarretera","idProyecto","carretera","tramo",
+							"sentido","carril","rubro","abrEstudio","anyo","geo","campos","consecutivo");
+
+							var_dump( $registros[$cont]= array_combine ($elementName, $registros[$cont]) );
 		var_dump($arrayNuevo);
 }
 ?>
