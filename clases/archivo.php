@@ -5,7 +5,7 @@ require_once("../PHPexcel/PHPExcel/Reader/Excel2007.php");
 set_time_limit(1200);
 ini_set('memory_limit','2048M');
 
-class archivo 
+class Archivo 
 {		
 		private $objPHPExcel, $currentSheet=0;
 		protected $conexion;
@@ -31,11 +31,11 @@ class archivo
 			return $this->db->rawData->find();
 		}
 
-		function leerLibro($nombreArchivo)
+		function leerLibro($ubicTempArchivo)
 		{
 			$objReader = PHPExcel_IOFactory::createReader('Excel2007');
 			$objReader->setReadDataOnly(true);
-			$this->objPHPExcel = $objReader->load($nombreArchivo);
+			$this->objPHPExcel = $objReader->load($ubicTempArchivo);
 		}
 
 		function getNumeroHojas()
@@ -44,21 +44,15 @@ class archivo
 		}
 
 
-		function getUltimaFila()
+		function getUltFilaHoja()
 		{
  			for ($c=0; $c < $this->getNumeroHojas() ; $c++)  
 			{ 	
-				$this->objPHPExcel->setActiveSheetIndex($c);  /// <-- indicamos la hoja a abrir
-				$numFilas[] = $this->objPHPExcel->getActiveSheet()->getHighestRow();	
+				$numFilas[] = $this->objPHPExcel->setActiveSheetIndex($c)->getHighestRow(); /// <-- indicamos la hoja a abrir
 			}
 			return $numFilas;
 
 		}
-
-
-
-
-
 
 		function getNombreHojas()  
 		{		 
@@ -80,12 +74,12 @@ class archivo
 			$hojase= $this->currentSheet = $hoja;
 		}
 
-		function getDataSheet($hoja,$fila,$ultimafila)
+		function getDataSheet($numHoja,$inicioFilaHoja,$ultimafilaHoja)
 		{
-			$this->objPHPExcel->setActiveSheetIndex($hoja);
+			$this->objPHPExcel->setActiveSheetIndex($numHoja);
 		    //$columnas = "j";
-		    $ultcol = $this->getUltimaCol();
-		    $documentos = $this->objPHPExcel->getActiveSheet()->rangeToArray('A'.$fila.':'.$ultcol.$ultimafila);
+		    $ultColumna = $this->getUltimaCol();
+		    $documentos = $this->objPHPExcel->getActiveSheet()->rangeToArray('A'.$inicioFilaHoja.':'.$ultColumna.$ultimafilaHoja);
 			return $documentos;
 		}
 }

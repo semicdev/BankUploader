@@ -22,6 +22,9 @@ class datos
 		return $datosGeo;
 	}
 
-
+	function getString()
+	{
+		
+	}
 
 }
