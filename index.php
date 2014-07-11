@@ -27,7 +27,7 @@
 		<h2 align="center"> Convertidor de Libros Excel => MongoDB</h2>
 		<hr>
 		<div class="row col-lg-12" id="entradaFile" >
-			<p ><span>Seleccione Libro a abrirhqewbfyuewbgfyu:</span></p>
+			<p ><span>Seleccione Libro a abrir:</span></p>
 				<form action="processupload.php" method="post" enctype="multipart/form-data" id="uploadFile">
 					<p><input name="FileInput" id="FileInput" type="file" class="btn btn-default" /></p>
 					<p><input type="submit"  id="submit-btn" value="Mostrar archivo" class="btn btn-primary btn-md" /></p>

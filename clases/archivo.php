@@ -82,6 +82,21 @@ class Archivo
 		    $documentos = $this->objPHPExcel->getActiveSheet()->rangeToArray('A'.$inicioFilaHoja.':'.$ultColumna.$ultimafilaHoja);
 			return $documentos;
 		}
+
+		function getClaveTramo($clave)
+		{
+			$clave = substr($clave,0,1);
+
+			if($clave =="L" || $clave =="A")
+			{
+				return $cantCol = 13;
+			}else{
+				return $cantCol = 15;
+			}
+
+		}
+
+
 }
 
 	

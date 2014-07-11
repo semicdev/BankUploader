@@ -21,7 +21,7 @@ function afterSuccess()
 {
 	$('#submit-btn').show(); //hide submit button
 	$('#loading-img').hide(); //hide submit button
-	$('#progressbox').delay( 1000 ).fadeOut(); //hide progress bar
+	//$('#progressbox').delay( 1000 ).fadeOut(); //hide progress bar
 }
 
 //function to check file size before uploading.
