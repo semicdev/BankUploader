@@ -16,6 +16,7 @@ $libro->leerLibro($ubicTempArchivo); // cargamos el archivo excel de acuerdo a l
 $nombrehoja = $libro->getNombreHojas(); // ñeemos los nombre de las hojas
 $ultimaColumna=$libro->getUltimaCol();
 
+
 var_dump($totalFilas);
 var_dump($ultimaFiladeHoja);
 var_dump($ultimaColumna);
@@ -85,6 +86,7 @@ var_dump($numeroHoja);
 		    	
 					</table> 
 					<input type="hidden" name="nombreArchivo" value="<?php echo $nombreArchivo; ?>"/>
+					<input type="text" name="nombreHoja" value=" <?php echo $nombrehoja[$numeroHoja]?>"/>
 					</form>
 					
 

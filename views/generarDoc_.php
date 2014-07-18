@@ -1,59 +1,38 @@
 <?php
-
-$col = json_decode($_POST['columnas'],true);
-
 include('../clases/datosAnexos.php');
-$datos = new datos();
-
 $json = $_POST['chkarray'];
-//$tramo0= $columnas[0];//a
-$carretera = $_POST['carretera'];
-$nombreArchivo = $_POST['nombreArchivo'];
-$claveTramo = $_POST['claveTramo'];
-
-$arrayRubro = explode( '_', $nombreArchivo ) ;
-$rubro = $arrayRubro[1];
-$estudio = explode( '.', substr($arrayRubro[2],0,3) );
-$abrEstudio = array_shift( $estudio );
-
+$contjson=sizeof($json);
+//var_dump($json);
 foreach ($json as $key => $value) {
 	$json[$key] = json_decode($value);	
 }
 
-for ($cont=0; $cont<sizeof($json); $cont++) 
-{
-    $idProyecto  	   = null;
-	$nombreCarretera   = $carretera;
-	//$tramo		 = $json[$cont][$columnas['tramo']];
-	$tramo 			   = $json[$cont][$col['tramo']];
-	$sentido		   = $json[$cont][$col['sentido']];
-	$carril			   = $json[$cont][$col['carril']];	
- 	/** anyo **/
-	$anyo 			   = $datos->getAnyo();
+for ($cont=0; $cont<$contjson; $cont++) 
+{//ESTADO
+    $nombreEstado 		= $json[$cont][2];
+	$estado    = array('estado'=>array('nombreEstado'=>$nombreEstado,'carretera'=>array()));
+ }
 
-	/*** geo **/
-	$latitud 		   = $json[$cont][$col['latitud']];
-	$longitud 	       = $json[$cont][$col['longitud']];
-	$elevacion 	       = $json[$cont][$col['elevacion']];
-	$x 			       = $json[$cont][$col['x']];
-	$y 			       = $json[$cont][$col['y']];
-	$rango 		       = null; 
-	$tipo 		       = "point";
-		
-	$geo  = $datos->getGeo($latitud,$longitud,$elevacion,$x,$y,$rango,$tipo);
-	$campos =  array("IRI izq"=>$json[$cont][12],"IRI der"=>$json[$cont][13],"IRI prom"=>$json[$cont][14]);
-	$consecutivo = $cont;
-
-		$arrayFinal = array($idProyecto,$nombreCarretera, $tramo,$sentido,$carril,/*$rubro, $abrEstudio,*/ $anyo, $geo, $campos,$consecutivo);
-
-		$elementName = array("idProyecto","carretera","tramo","sentido","carril",/*"rubro","abrEstudio",*/"anyo","geo","campos","consecutivo");
-
-		$arrayFinal= array_combine ($elementName, $arrayFinal);
-
-		var_dump($arrayFinal);
+$carreteraAnt=null;
+foreach ($json as $key => $value) {
+	 if($value[6] != $carreteraAnt){
+	 	$carreteraNueva = array('nombreCarretera'=>$value[5],'numero'=>$value[4],'claveCarretera'=>$value[6],'ruta'=>$value[7],'red'=>$value[8],'estacion'=> array());
+	 	array_push($estado['estado']['carretera'], $carreteraNueva);
+	 }
+	 $carreteraAnt = $value[6];
 }
 
-
-
-
+$cont = 0;
+foreach ($json as $key => $value) {
+	foreach ($estado['estado']['carretera'] as $k => $v) {
+	    if($value[6] == $v['claveCarretera']){
+	    	$histograma=array("Lunes"=>$value[29],'Martes'=>$value[30],'Miercoles'=>$value[31],'Jueves'=>$value[32],'Viernes'=>$value[33],'Sabado'=>$value[34],'Domingo'=>$value[35]);
+	    	$estacion = array('nombreEstacion'=>$value[10],'km'=>$value[13],'tipo'=>$value[11],'sentido'=>$value[12],'histograma'=>$histograma,'tdpa'=>$value[14],'m'=>$value[15],'a'=>$value[16],'b'=>$value[17],'c2'=>$value[18],'c3'=>$value[19],'t3s2'=>$value[20],'t3s3'=>$value[21],'t3s2r4'=>$value[22],'otros'=>$value[23],'aa'=>$value[24],'bb'=>$value[25],'cc'=>$value[26],'d'=>$value[27],'K_x0027_'=>$value[28],'lat'=>$value[36],'long'=>$value[37]);
+	    	 array_push($estado['estado']['carretera'][$k]['estacion'],array($estacion));
+	    	$cont++;
+		}
+	}
+}
+echo json_encode($estado);
 ?>
+
